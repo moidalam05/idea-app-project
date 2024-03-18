@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import JWT from 'jsonwebtoken';
+import crypto from 'crypto';
 import config from '../config/index.js';
 
 const userSchema = new mongoose.Schema(
@@ -29,7 +30,7 @@ const userSchema = new mongoose.Schema(
 			type: String,
 			required: [true, 'Please provide a password.'],
 			trim: true,
-			maxLength: [100, 'Password cannot exceed 100 characters.'],
+			minLength: [8, 'Password must be at least 8 characters.'],
 		},
 		forgotPasswordToken: String,
 		ForgotPasswordExpiry: Date,
