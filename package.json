@@ -1,0 +1,15 @@
+{
+  "name": "ideaapp",
+  "version": "1.0.0",
+  "description": "a fullstack idea web app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Moid Alam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.3",
+    "mongoose": "^8.2.2"
+  }
+}
