@@ -2,19 +2,15 @@ import { Router } from 'express';
 import {
 	createIdea,
 	deleteIdea,
-	getIdea,
-	getIdeas,
 	updateIdea,
 	getAllIdeas,
 	getIdeasByUser,
 	getSingleIdea,
 } from '../controllers/idea.controllers.js';
-import isLoggedIn from '../middlewares/isLoggedIn.js';
+import isLoggedIn from '../middlewares/auth.middlewares.js';
 const router = Router();
 
 router.post('/', isLoggedIn, createIdea);
-router.get('/', isLoggedIn, getIdeas);
-router.get('/:id', isLoggedIn, getIdea);
 router.put('/:id', isLoggedIn, updateIdea);
 router.delete('/:id', isLoggedIn, deleteIdea);
 router.get('/all', isLoggedIn, getAllIdeas);

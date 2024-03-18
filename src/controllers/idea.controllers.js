@@ -1,4 +1,4 @@
-import Idea from '../models/idea.model.js';
+import Idea from '../models/idea.models.js';
 import asyncHandler from '../utils/asyncHandler.js';
 import CustomError from '../utils/CustomError.js';
 

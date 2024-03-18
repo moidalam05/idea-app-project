@@ -5,7 +5,7 @@ import {
 	logout,
 	getProfile,
 } from '../controllers/auth.controllers.js';
-import isLoggedIn from '../middlewares/isLoggedIn.js';
+import isLoggedIn from '../middlewares/auth.middlewares.js';
 const router = Router();
 
 router.post('/register', register);

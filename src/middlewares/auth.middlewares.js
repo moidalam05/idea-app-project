@@ -4,7 +4,7 @@ import asyncHandler from '../utils/asyncHandler.js';
 import config from '../config/index.js';
 import CustomError from '../utils/CustomError.js';
 
-export const isLoggedIn = asyncHandler(async (req, res, next) => {
+const isLoggedIn = asyncHandler(async (req, res, next) => {
 	let token;
 	if (
 		req.cookies.token ||
@@ -30,3 +30,5 @@ export const isLoggedIn = asyncHandler(async (req, res, next) => {
 		throw new CustomError('Not authorized to access this route', 401);
 	}
 });
+
+export default isLoggedIn;
