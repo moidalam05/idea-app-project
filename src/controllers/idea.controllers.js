@@ -8,7 +8,7 @@ import CustomError from '../utils/CustomError.js';
 
 export const createIdea = asyncHandler(async (req, res) => {
 	const { ideaName, description } = req.body;
-	const auther = req.user._id;
+	const author = req.user._id;
 
 	if (!ideaName || !description) {
 		throw new CustomError('Please provide idea name and description', 400);
@@ -16,11 +16,16 @@ export const createIdea = asyncHandler(async (req, res) => {
 	if (ideaName.length > 100) {
 		throw new CustomError('Idea name cannot exceed 100 characters', 400);
 	}
-	if (!auther) {
+	if (!author) {
 		throw new CustomError('Please provide auther', 400);
 	}
 
-	const idea = await Idea.create({ ideaName, description, auther });
+	// check if idea already exists
+	const existingIdea = await Idea.findOne({ ideaName });
+	if (existingIdea) {
+		throw new CustomError('Idea already exists', 400);
+	}
+	const idea = await Idea.create({ ideaName, description, author });
 	if (!idea) {
 		throw new CustomError('Idea not created', 500);
 	}
@@ -36,7 +41,7 @@ export const createIdea = asyncHandler(async (req, res) => {
 // @access  Public
 
 export const getAllIdeas = asyncHandler(async (req, res) => {
-	const ideas = await Idea.find().populate('auther', 'name', 'email');
+	const ideas = await Idea.find().populate('author', 'name');
 	if (!ideas) {
 		throw new CustomError('No ideas found', 404);
 	}
@@ -53,7 +58,7 @@ export const getAllIdeas = asyncHandler(async (req, res) => {
 
 export const getSingleIdea = asyncHandler(async (req, res) => {
 	const { id: ideaId } = req.params;
-	const idea = await Idea.findById(ideaId).populate('auther', 'name', 'email');
+	const idea = await Idea.findById(ideaId).populate('author', 'name');
 	if (!idea) {
 		throw new CustomError('No idea found', 404);
 	}
@@ -119,7 +124,7 @@ export const deleteIdea = asyncHandler(async (req, res) => {
 
 export const getIdeasByUser = asyncHandler(async (req, res) => {
 	const { id: userId } = req.params;
-	const ideas = await Idea.find({ auther: userId });
+	const ideas = await Idea.find({ author: userId });
 	if (!ideas) {
 		throw new CustomError('No ideas found', 404);
 	}

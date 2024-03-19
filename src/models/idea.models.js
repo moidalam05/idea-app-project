@@ -13,7 +13,7 @@ const ideaSchema = new mongoose.Schema(
 			required: [true, 'Please provide a description of idea.'],
 			trim: true,
 		},
-		auther: {
+		author: {
 			type: mongoose.Schema.Types.ObjectId,
 			ref: 'User',
 			required: true,
