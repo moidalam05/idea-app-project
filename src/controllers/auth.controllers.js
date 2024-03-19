@@ -69,8 +69,10 @@ export const login = asyncHandler(async (req, res) => {
 	if (password.length < 8) {
 		throw new CustomError('Password should be at least 8 characters long', 400);
 	}
-	if (!email.includes('@')) {
-		throw new CustomError('Please provide a valid email', 400);
+	if (email) {
+		if (!email.includes('@')) {
+			throw new CustomError('Please provide a valid email', 400);
+		}
 	}
 	const user = await User.findOne({ $or: [{ email }, { username }] }).select(
 		'+password'
