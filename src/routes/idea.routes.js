@@ -13,8 +13,8 @@ const router = Router();
 router.post('/', isLoggedIn, createIdea);
 router.put('/:id', isLoggedIn, updateIdea);
 router.delete('/:id', isLoggedIn, deleteIdea);
-router.get('/all', isLoggedIn, getAllIdeas);
-router.get('/user/:id', isLoggedIn, getIdeasByUser);
-router.get('/:id', isLoggedIn, getSingleIdea);
+router.get('/all', getAllIdeas);
+router.get('/user/:id', getIdeasByUser);
+router.get('/:id', getSingleIdea);
 
 export default router;
